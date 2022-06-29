@@ -30,4 +30,35 @@ class Battleship:
 
     def create_ships(self):
         for i in range(5):
+            # run a loop to find a random place to put an X, the "while" parameter will make sure that no existing battleship has been placed in this location and loop again if it is occupied
             self.x_row, self.y_column = random.randint(0, 7), random.randint(0, 7)
+            while self.board[self.x_row][self.y_column] == "X":
+                self.x_row, self.y_column = random.randint(0, 7), random.randint(0, 7)
+            self.board[self.x_row][self.y_column] = "X"
+        return self.board
+    
+    def get_player_input(self):
+        # player input functions are created to make sure the player selects an existing row (x) and column (y) to insure the instructions to the program are valid.
+        try:
+            x_row = input("Enter the row of the ship: e.g. 123 ")
+            while x_row not in "12345678":
+                print("Cannot place ship here, please select a row")
+                x_row = input("Enter the row of the ship: e.g. 123 ")
+
+            y_column = input("Enter the column of the ship: e.g. ABC ").upper()
+            while y_column not in "ABCDEFGHI":
+                print("Cannot place ship here, please select a column")
+                y_column = input("Enter the column of the ship: e.g. ABC ")
+            return int(x_row) -1, Board.get_letters_to_numbers()[y_column]
+        except ValueError() and KeyError():
+            print("Input is not valid")
+            return self.get_player_input()
+    
+    def hit_ships_counter(self):
+        #hit ships counter to start at 0, and will increase by 1 for each X (direct hit) that is found on the board.
+        hit_ships = 0
+        for row in self.board:
+            for column in row:
+                if column == "X":
+                    hit_ships += 1
+        return hit_ships
