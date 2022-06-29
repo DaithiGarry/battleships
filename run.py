@@ -22,3 +22,12 @@ class Board:
         for row in self.board:
             print("%d|%S|" % (row_number, "|".join(row)))
             row_number +=1
+
+class Battleship:
+    # the same function was used as was created in class Board above.
+    def _init_(self, board):
+        self.board = board
+
+    def create_ships(self):
+        for i in range(5):
+            self.x_row, self.y_column = random.randint(0, 7), random.randint(0, 7)
