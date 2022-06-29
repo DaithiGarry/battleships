@@ -62,3 +62,33 @@ class Battleship:
                 if column == "X":
                     hit_ships += 1
         return hit_ships
+
+    def RunGame():
+        computer_board = Board([[" "] * 8 for i in range(8)])
+        player_board = Board([[" "] * 8 for i in range(8)])
+        Battleship.create_ships(computer_board)
+        attempts = 10
+        while attempts > 0:
+            Board.print_board(player_board)
+            player_x_row, player_y_column = Battleship.get_player_input(object)
+        while player_board.board[player_x_row][player_y_column] == "0" or player_board.board[player_x_row][player_y_column] == "X":
+            print("Cannot complete, you have already guessed this location")
+            player_x_row, player_y_column = Battleship.get_player_input(object)
+        if computer_board.board[player_x_row][player_y_column] == "X":
+            print("Direct hit....You sunk my battleship!")
+            player_board.board[player_x_row][player_y_column] = "X"
+        else:
+            print("You missed!")
+            player_board.board[player_x_row][player_y_column] = "0"
+        if Battleship.hit_ships_counter(player_board) == 5:
+            print("You have sunk all my battleships!")           
+        else:
+            attempts -= 1
+            print(f"You have {attempts} attempts left!")
+            if attempts == 0:
+                print("Sorry, no attempts remaining")
+                Board.print_board(player_board)
+                
+print("Welcome to Battleships")
+if __name__ == "__main__":
+    RunGame()
