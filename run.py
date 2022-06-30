@@ -1,7 +1,6 @@
+from random import randint
 
-import random
-
-class Board:
+class GameBoard:
     """
     define user board
     """
@@ -27,8 +26,8 @@ class Board:
         create a loop to loop through the board the correct numbers of times(%d|%S|) and print the row numbers(which are performed in increments of 1) for each loop which has been spaced by a |.
         """
         for row in self.board:
-            print("%d|%S|" % (row_number, "|".join(row)))
-            row_number +=1
+            print("%d|%s|" % (row_number, "|".join(row)))
+            row_number += 1
 
 class Battleship:
     """ 
